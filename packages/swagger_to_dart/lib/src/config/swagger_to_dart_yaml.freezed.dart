@@ -192,6 +192,7 @@ mixin _$SwaggerToDart {
   String get apiClientClassName;
   List<String> get globalImports;
   Map<String, List<String>> get fileImports;
+  CustomApiResponse? get customApiResponse; // Updated to use a model
   List<String> get skippedParameters;
 
   /// Create a copy of SwaggerToDart
@@ -221,6 +222,8 @@ mixin _$SwaggerToDart {
                 .equals(other.globalImports, globalImports) &&
             const DeepCollectionEquality()
                 .equals(other.fileImports, fileImports) &&
+            (identical(other.customApiResponse, customApiResponse) ||
+                other.customApiResponse == customApiResponse) &&
             const DeepCollectionEquality()
                 .equals(other.skippedParameters, skippedParameters));
   }
@@ -235,11 +238,12 @@ mixin _$SwaggerToDart {
       apiClientClassName,
       const DeepCollectionEquality().hash(globalImports),
       const DeepCollectionEquality().hash(fileImports),
+      customApiResponse,
       const DeepCollectionEquality().hash(skippedParameters));
 
   @override
   String toString() {
-    return 'SwaggerToDart(url: $url, inputDirectory: $inputDirectory, outputDirectory: $outputDirectory, apiClientClassName: $apiClientClassName, globalImports: $globalImports, fileImports: $fileImports, skippedParameters: $skippedParameters)';
+    return 'SwaggerToDart(url: $url, inputDirectory: $inputDirectory, outputDirectory: $outputDirectory, apiClientClassName: $apiClientClassName, globalImports: $globalImports, fileImports: $fileImports, customApiResponse: $customApiResponse, skippedParameters: $skippedParameters)';
   }
 }
 
@@ -256,7 +260,10 @@ abstract mixin class $SwaggerToDartCopyWith<$Res> {
       String apiClientClassName,
       List<String> globalImports,
       Map<String, List<String>> fileImports,
+      CustomApiResponse? customApiResponse,
       List<String> skippedParameters});
+
+  $CustomApiResponseCopyWith<$Res>? get customApiResponse;
 }
 
 /// @nodoc
@@ -278,6 +285,7 @@ class _$SwaggerToDartCopyWithImpl<$Res>
     Object? apiClientClassName = null,
     Object? globalImports = null,
     Object? fileImports = null,
+    Object? customApiResponse = freezed,
     Object? skippedParameters = null,
   }) {
     return _then(_self.copyWith(
@@ -305,11 +313,29 @@ class _$SwaggerToDartCopyWithImpl<$Res>
           ? _self.fileImports
           : fileImports // ignore: cast_nullable_to_non_nullable
               as Map<String, List<String>>,
+      customApiResponse: freezed == customApiResponse
+          ? _self.customApiResponse
+          : customApiResponse // ignore: cast_nullable_to_non_nullable
+              as CustomApiResponse?,
       skippedParameters: null == skippedParameters
           ? _self.skippedParameters
           : skippedParameters // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
+  }
+
+  /// Create a copy of SwaggerToDart
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CustomApiResponseCopyWith<$Res>? get customApiResponse {
+    if (_self.customApiResponse == null) {
+      return null;
+    }
+
+    return $CustomApiResponseCopyWith<$Res>(_self.customApiResponse!, (value) {
+      return _then(_self.copyWith(customApiResponse: value));
+    });
   }
 }
 
@@ -324,6 +350,7 @@ class _SwaggerToDart implements SwaggerToDart {
       this.apiClientClassName = 'ApiClient',
       final List<String> globalImports = const [],
       final Map<String, List<String>> fileImports = const {},
+      this.customApiResponse = null,
       final List<String> skippedParameters = const []})
       : _globalImports = globalImports,
         _fileImports = fileImports,
@@ -360,7 +387,12 @@ class _SwaggerToDart implements SwaggerToDart {
     return EqualUnmodifiableMapView(_fileImports);
   }
 
+  @override
+  @JsonKey()
+  final CustomApiResponse? customApiResponse;
+// Updated to use a model
   final List<String> _skippedParameters;
+// Updated to use a model
   @override
   @JsonKey()
   List<String> get skippedParameters {
@@ -401,6 +433,8 @@ class _SwaggerToDart implements SwaggerToDart {
                 .equals(other._globalImports, _globalImports) &&
             const DeepCollectionEquality()
                 .equals(other._fileImports, _fileImports) &&
+            (identical(other.customApiResponse, customApiResponse) ||
+                other.customApiResponse == customApiResponse) &&
             const DeepCollectionEquality()
                 .equals(other._skippedParameters, _skippedParameters));
   }
@@ -415,11 +449,12 @@ class _SwaggerToDart implements SwaggerToDart {
       apiClientClassName,
       const DeepCollectionEquality().hash(_globalImports),
       const DeepCollectionEquality().hash(_fileImports),
+      customApiResponse,
       const DeepCollectionEquality().hash(_skippedParameters));
 
   @override
   String toString() {
-    return 'SwaggerToDart(url: $url, inputDirectory: $inputDirectory, outputDirectory: $outputDirectory, apiClientClassName: $apiClientClassName, globalImports: $globalImports, fileImports: $fileImports, skippedParameters: $skippedParameters)';
+    return 'SwaggerToDart(url: $url, inputDirectory: $inputDirectory, outputDirectory: $outputDirectory, apiClientClassName: $apiClientClassName, globalImports: $globalImports, fileImports: $fileImports, customApiResponse: $customApiResponse, skippedParameters: $skippedParameters)';
   }
 }
 
@@ -438,7 +473,11 @@ abstract mixin class _$SwaggerToDartCopyWith<$Res>
       String apiClientClassName,
       List<String> globalImports,
       Map<String, List<String>> fileImports,
+      CustomApiResponse? customApiResponse,
       List<String> skippedParameters});
+
+  @override
+  $CustomApiResponseCopyWith<$Res>? get customApiResponse;
 }
 
 /// @nodoc
@@ -460,6 +499,7 @@ class __$SwaggerToDartCopyWithImpl<$Res>
     Object? apiClientClassName = null,
     Object? globalImports = null,
     Object? fileImports = null,
+    Object? customApiResponse = freezed,
     Object? skippedParameters = null,
   }) {
     return _then(_SwaggerToDart(
@@ -487,10 +527,240 @@ class __$SwaggerToDartCopyWithImpl<$Res>
           ? _self._fileImports
           : fileImports // ignore: cast_nullable_to_non_nullable
               as Map<String, List<String>>,
+      customApiResponse: freezed == customApiResponse
+          ? _self.customApiResponse
+          : customApiResponse // ignore: cast_nullable_to_non_nullable
+              as CustomApiResponse?,
       skippedParameters: null == skippedParameters
           ? _self._skippedParameters
           : skippedParameters // ignore: cast_nullable_to_non_nullable
               as List<String>,
+    ));
+  }
+
+  /// Create a copy of SwaggerToDart
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CustomApiResponseCopyWith<$Res>? get customApiResponse {
+    if (_self.customApiResponse == null) {
+      return null;
+    }
+
+    return $CustomApiResponseCopyWith<$Res>(_self.customApiResponse!, (value) {
+      return _then(_self.copyWith(customApiResponse: value));
+    });
+  }
+}
+
+/// @nodoc
+mixin _$CustomApiResponse {
+  String get adapterClassName;
+  String get returnTypeClassName;
+  String get adapterImportPath;
+  String get returnTypeImportPath;
+
+  /// Create a copy of CustomApiResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $CustomApiResponseCopyWith<CustomApiResponse> get copyWith =>
+      _$CustomApiResponseCopyWithImpl<CustomApiResponse>(
+          this as CustomApiResponse, _$identity);
+
+  /// Serializes this CustomApiResponse to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is CustomApiResponse &&
+            (identical(other.adapterClassName, adapterClassName) ||
+                other.adapterClassName == adapterClassName) &&
+            (identical(other.returnTypeClassName, returnTypeClassName) ||
+                other.returnTypeClassName == returnTypeClassName) &&
+            (identical(other.adapterImportPath, adapterImportPath) ||
+                other.adapterImportPath == adapterImportPath) &&
+            (identical(other.returnTypeImportPath, returnTypeImportPath) ||
+                other.returnTypeImportPath == returnTypeImportPath));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, adapterClassName,
+      returnTypeClassName, adapterImportPath, returnTypeImportPath);
+
+  @override
+  String toString() {
+    return 'CustomApiResponse(adapterClassName: $adapterClassName, returnTypeClassName: $returnTypeClassName, adapterImportPath: $adapterImportPath, returnTypeImportPath: $returnTypeImportPath)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $CustomApiResponseCopyWith<$Res> {
+  factory $CustomApiResponseCopyWith(
+          CustomApiResponse value, $Res Function(CustomApiResponse) _then) =
+      _$CustomApiResponseCopyWithImpl;
+  @useResult
+  $Res call(
+      {String adapterClassName,
+      String returnTypeClassName,
+      String adapterImportPath,
+      String returnTypeImportPath});
+}
+
+/// @nodoc
+class _$CustomApiResponseCopyWithImpl<$Res>
+    implements $CustomApiResponseCopyWith<$Res> {
+  _$CustomApiResponseCopyWithImpl(this._self, this._then);
+
+  final CustomApiResponse _self;
+  final $Res Function(CustomApiResponse) _then;
+
+  /// Create a copy of CustomApiResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? adapterClassName = null,
+    Object? returnTypeClassName = null,
+    Object? adapterImportPath = null,
+    Object? returnTypeImportPath = null,
+  }) {
+    return _then(_self.copyWith(
+      adapterClassName: null == adapterClassName
+          ? _self.adapterClassName
+          : adapterClassName // ignore: cast_nullable_to_non_nullable
+              as String,
+      returnTypeClassName: null == returnTypeClassName
+          ? _self.returnTypeClassName
+          : returnTypeClassName // ignore: cast_nullable_to_non_nullable
+              as String,
+      adapterImportPath: null == adapterImportPath
+          ? _self.adapterImportPath
+          : adapterImportPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      returnTypeImportPath: null == returnTypeImportPath
+          ? _self.returnTypeImportPath
+          : returnTypeImportPath // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class _CustomApiResponse implements CustomApiResponse {
+  _CustomApiResponse(
+      {required this.adapterClassName,
+      required this.returnTypeClassName,
+      required this.adapterImportPath,
+      required this.returnTypeImportPath});
+  factory _CustomApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$CustomApiResponseFromJson(json);
+
+  @override
+  final String adapterClassName;
+  @override
+  final String returnTypeClassName;
+  @override
+  final String adapterImportPath;
+  @override
+  final String returnTypeImportPath;
+
+  /// Create a copy of CustomApiResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$CustomApiResponseCopyWith<_CustomApiResponse> get copyWith =>
+      __$CustomApiResponseCopyWithImpl<_CustomApiResponse>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$CustomApiResponseToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _CustomApiResponse &&
+            (identical(other.adapterClassName, adapterClassName) ||
+                other.adapterClassName == adapterClassName) &&
+            (identical(other.returnTypeClassName, returnTypeClassName) ||
+                other.returnTypeClassName == returnTypeClassName) &&
+            (identical(other.adapterImportPath, adapterImportPath) ||
+                other.adapterImportPath == adapterImportPath) &&
+            (identical(other.returnTypeImportPath, returnTypeImportPath) ||
+                other.returnTypeImportPath == returnTypeImportPath));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, adapterClassName,
+      returnTypeClassName, adapterImportPath, returnTypeImportPath);
+
+  @override
+  String toString() {
+    return 'CustomApiResponse(adapterClassName: $adapterClassName, returnTypeClassName: $returnTypeClassName, adapterImportPath: $adapterImportPath, returnTypeImportPath: $returnTypeImportPath)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$CustomApiResponseCopyWith<$Res>
+    implements $CustomApiResponseCopyWith<$Res> {
+  factory _$CustomApiResponseCopyWith(
+          _CustomApiResponse value, $Res Function(_CustomApiResponse) _then) =
+      __$CustomApiResponseCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String adapterClassName,
+      String returnTypeClassName,
+      String adapterImportPath,
+      String returnTypeImportPath});
+}
+
+/// @nodoc
+class __$CustomApiResponseCopyWithImpl<$Res>
+    implements _$CustomApiResponseCopyWith<$Res> {
+  __$CustomApiResponseCopyWithImpl(this._self, this._then);
+
+  final _CustomApiResponse _self;
+  final $Res Function(_CustomApiResponse) _then;
+
+  /// Create a copy of CustomApiResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? adapterClassName = null,
+    Object? returnTypeClassName = null,
+    Object? adapterImportPath = null,
+    Object? returnTypeImportPath = null,
+  }) {
+    return _then(_CustomApiResponse(
+      adapterClassName: null == adapterClassName
+          ? _self.adapterClassName
+          : adapterClassName // ignore: cast_nullable_to_non_nullable
+              as String,
+      returnTypeClassName: null == returnTypeClassName
+          ? _self.returnTypeClassName
+          : returnTypeClassName // ignore: cast_nullable_to_non_nullable
+              as String,
+      adapterImportPath: null == adapterImportPath
+          ? _self.adapterImportPath
+          : adapterImportPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      returnTypeImportPath: null == returnTypeImportPath
+          ? _self.returnTypeImportPath
+          : returnTypeImportPath // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }

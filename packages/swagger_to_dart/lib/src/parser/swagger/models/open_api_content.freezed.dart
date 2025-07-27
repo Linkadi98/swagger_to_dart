@@ -20,7 +20,7 @@ mixin _$OpenApiContent {
   OpenApiContentSchema? get applicationXWwwFormUrlencoded;
   @JsonKey(name: 'multipart/form-data')
   OpenApiContentSchema? get multipartFormData;
-  @JsonKey(name: "*/*")
+  @JsonKey(name: '*/*')
   OpenApiContentSchema? get any;
 
   /// Create a copy of OpenApiContent
@@ -73,7 +73,7 @@ abstract mixin class $OpenApiContentCopyWith<$Res> {
       OpenApiContentSchema? applicationXWwwFormUrlencoded,
       @JsonKey(name: 'multipart/form-data')
       OpenApiContentSchema? multipartFormData,
-      @JsonKey(name: "*/*") OpenApiContentSchema? any});
+      @JsonKey(name: '*/*') OpenApiContentSchema? any});
 
   $OpenApiContentSchemaCopyWith<$Res>? get applicationJson;
   $OpenApiContentSchemaCopyWith<$Res>? get applicationXWwwFormUrlencoded;
@@ -186,7 +186,7 @@ class _OpenApiContent extends OpenApiContent {
       @JsonKey(name: 'application/x-www-form-urlencoded')
       required this.applicationXWwwFormUrlencoded,
       @JsonKey(name: 'multipart/form-data') required this.multipartFormData,
-      @JsonKey(name: "*/*") required this.any})
+      @JsonKey(name: '*/*') required this.any})
       : super._();
   factory _OpenApiContent.fromJson(Map<String, dynamic> json) =>
       _$OpenApiContentFromJson(json);
@@ -201,7 +201,7 @@ class _OpenApiContent extends OpenApiContent {
   @JsonKey(name: 'multipart/form-data')
   final OpenApiContentSchema? multipartFormData;
   @override
-  @JsonKey(name: "*/*")
+  @JsonKey(name: '*/*')
   final OpenApiContentSchema? any;
 
   /// Create a copy of OpenApiContent
@@ -260,7 +260,7 @@ abstract mixin class _$OpenApiContentCopyWith<$Res>
       OpenApiContentSchema? applicationXWwwFormUrlencoded,
       @JsonKey(name: 'multipart/form-data')
       OpenApiContentSchema? multipartFormData,
-      @JsonKey(name: "*/*") OpenApiContentSchema? any});
+      @JsonKey(name: '*/*') OpenApiContentSchema? any});
 
   @override
   $OpenApiContentSchemaCopyWith<$Res>? get applicationJson;

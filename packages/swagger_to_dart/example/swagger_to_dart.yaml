@@ -4,9 +4,13 @@ swagger_to_dart:
 
   # Where to save the openapi.json file
   input_directory: schema/swagger.json
-  globalImports: 
-  fileImports: 
-
+  global_imports: 
+  file_imports: 
+  custom_api_response: 
+    adapter_class_name: CustomApiResponseAdapter
+    return_type_class_name: Result
+    adapter_import_path: package:example/custom_api_response.dart
+    return_type_import_path: package:example/custom_api_response.dart
   skipped_parameters:
     - "Accept-Language"
     - "X-Language"

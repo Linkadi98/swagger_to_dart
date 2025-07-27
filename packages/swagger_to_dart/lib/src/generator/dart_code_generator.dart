@@ -19,6 +19,7 @@ class SwaggerToDartDartCodeGenerator {
     await _generateModels();
     await _generateClients();
     await _generateConvertors();
+    await _generateItemListHandler();
     await _generateExports();
   }
 
@@ -40,7 +41,9 @@ class SwaggerToDartDartCodeGenerator {
 
   /// Generates all clients from the OpenAPI paths
   Future<void> _generateClients() async {
-    final clientGen = OpenApiClientGenerator(config: config);
+    final replacementMethodBuilders = await MethodReplacement().run();
+    final clientGen = OpenApiClientGenerator(
+        config: config, methodBuilders: replacementMethodBuilders);
     final baseGen =
         OpenApiBaseClientGenerator(config: config, openApi: openApi);
     await fileHandler.createDirectory(config.pathConfig.clientsOutputDirectory);
@@ -54,6 +57,7 @@ class SwaggerToDartDartCodeGenerator {
           path: pathsMap,
           clientName: tag,
           tagPaths: pathsByTags[tag]!,
+          components: openApi.components,
         );
         final filepath = '${config.pathConfig.clientsOutputDirectory}'
             '/${config.namingUtils.renameFile(tag)}_client.dart';
@@ -144,5 +148,43 @@ class SwaggerToDartDartCodeGenerator {
     );
     await exportsGen.generateModelsExports();
     await exportsGen.generateClientsExports();
+  }
+
+  Future<void> _generateItemListHandler() async {
+    // Define the library
+    final lib = Library((b) {
+      // Define the ItemList class
+      b.body.add(Class((c) {
+        c.name = 'MapItem';
+
+        // Add a field for the list of items
+        c.fields.add(Field((f) => f
+          ..name = 'json'
+          ..type = refer('Map<String, dynamic>')
+          ..modifier = FieldModifier.final$));
+
+        // Add a constructor
+        c.constructors.add(Constructor((ctr) {
+          ctr.constant = true;
+          ctr.name = 'fromJson';
+          ctr.requiredParameters.add(Parameter((p) => p
+            ..name = 'json'
+            ..toThis = true));
+        }));
+      }));
+    });
+
+    // Format the generated code
+    final emitter = DartEmitter.scoped(useNullSafetySyntax: true);
+    final formatter = DartFormatter(
+      languageVersion: DartFormatter.latestLanguageVersion,
+    );
+    final code = formatter.format('${lib.accept(emitter)}');
+
+    // Write the generated code to a file
+    final outDir = config.pathConfig.modelsOutputDirectory;
+    await fileHandler.createDirectory(outDir);
+    final filePath = '$outDir/map_item.dart';
+    await fileHandler.writeFile(filePath, code);
   }
 }

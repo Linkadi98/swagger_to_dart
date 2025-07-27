@@ -17,15 +17,12 @@ class _ValidationClient implements ValidationClient {
 
   final ParseErrorLogger? errorLogger;
 
-  @override
-  Future<HttpResponse<dynamic>> validationParamPath({
-    required int itemId,
-  }) async {
+  Future<dynamic> _validationParamPath(int itemId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -37,12 +34,17 @@ class _ValidationClient implements ValidationClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> validationParamQuery({
+  Future<Result<dynamic>> validationParamPath(int itemId) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _validationParamPath(itemId),
+    );
+  }
+
+  Future<dynamic> _validationParamQuery({
     String? q,
     required int skip,
     required int limit,
@@ -56,7 +58,7 @@ class _ValidationClient implements ValidationClient {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -68,17 +70,26 @@ class _ValidationClient implements ValidationClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> validationParamBody() async {
+  Future<Result<dynamic>> validationParamQuery({
+    String? q,
+    required int skip,
+    required int limit,
+  }) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _validationParamQuery(q: q, skip: skip, limit: limit),
+    );
+  }
+
+  Future<dynamic> _validationParamBody() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -90,12 +101,17 @@ class _ValidationClient implements ValidationClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> validationParamCookie({
+  Future<Result<dynamic>> validationParamBody() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _validationParamBody(),
+    );
+  }
+
+  Future<dynamic> _validationParamCookie({
     String? session,
     String? preferences,
   }) async {
@@ -105,7 +121,7 @@ class _ValidationClient implements ValidationClient {
     final _headers = <String, dynamic>{r'Cookie': preferences};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -117,13 +133,21 @@ class _ValidationClient implements ValidationClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> validationParamHeader({
-    required String userAgent,
+  Future<Result<dynamic>> validationParamCookie({
+    String? session,
+    String? preferences,
+  }) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _validationParamCookie(session: session, preferences: preferences),
+    );
+  }
+
+  Future<dynamic> _validationParamHeader(
+    String userAgent, {
     String? xToken,
   }) async {
     final _extra = <String, dynamic>{};
@@ -135,7 +159,7 @@ class _ValidationClient implements ValidationClient {
     };
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -147,18 +171,25 @@ class _ValidationClient implements ValidationClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<AllTypesWithValidation>>
-      validationValidationComplex() async {
+  Future<Result<dynamic>> validationParamHeader(
+    String userAgent, {
+    String? xToken,
+  }) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _validationParamHeader(userAgent, xToken: xToken),
+    );
+  }
+
+  Future<AllTypesWithValidation> _validationValidationComplex() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<AllTypesWithValidation>>(
+    final _options = _setStreamType<Result<AllTypesWithValidation>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -176,12 +207,17 @@ class _ValidationClient implements ValidationClient {
       errorLogger?.logError(e, s, _options);
       rethrow;
     }
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> validationValidationConditional({
+  Future<Result<AllTypesWithValidation>> validationValidationComplex() {
+    return CustomApiResponseAdapter<AllTypesWithValidation>().adapt(
+      () => _validationValidationComplex(),
+    );
+  }
+
+  Future<dynamic> _validationValidationConditional({
     int? userId,
     String? username,
   }) async {
@@ -193,7 +229,7 @@ class _ValidationClient implements ValidationClient {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -205,18 +241,26 @@ class _ValidationClient implements ValidationClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<ConditionalBody>>
-      validationValidationConditionalBody() async {
+  Future<Result<dynamic>> validationValidationConditional({
+    int? userId,
+    String? username,
+  }) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () =>
+          _validationValidationConditional(userId: userId, username: username),
+    );
+  }
+
+  Future<ConditionalBody> _validationValidationConditionalBody() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<ConditionalBody>>(
+    final _options = _setStreamType<Result<ConditionalBody>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -234,19 +278,22 @@ class _ValidationClient implements ValidationClient {
       errorLogger?.logError(e, s, _options);
       rethrow;
     }
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> validationConstrainedInt({
-    required int value,
-  }) async {
+  Future<Result<ConditionalBody>> validationValidationConditionalBody() {
+    return CustomApiResponseAdapter<ConditionalBody>().adapt(
+      () => _validationValidationConditionalBody(),
+    );
+  }
+
+  Future<dynamic> _validationConstrainedInt(int value) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'value': value};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -258,19 +305,22 @@ class _ValidationClient implements ValidationClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> validationConstrainedFloat({
-    required double value,
-  }) async {
+  Future<Result<dynamic>> validationConstrainedInt(int value) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _validationConstrainedInt(value),
+    );
+  }
+
+  Future<dynamic> _validationConstrainedFloat(double value) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'value': value};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -282,19 +332,22 @@ class _ValidationClient implements ValidationClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> validationConstrainedString({
-    required String value,
-  }) async {
+  Future<Result<dynamic>> validationConstrainedFloat(double value) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _validationConstrainedFloat(value),
+    );
+  }
+
+  Future<dynamic> _validationConstrainedString(String value) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'value': value};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -306,8 +359,14 @@ class _ValidationClient implements ValidationClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
+  }
+
+  @override
+  Future<Result<dynamic>> validationConstrainedString(String value) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _validationConstrainedString(value),
+    );
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

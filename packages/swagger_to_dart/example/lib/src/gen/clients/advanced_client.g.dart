@@ -17,15 +17,12 @@ class _AdvancedClient implements AdvancedClient {
 
   final ParseErrorLogger? errorLogger;
 
-  @override
-  Future<HttpResponse<dynamic>> advancedSpecialUuid({
-    required String id,
-  }) async {
+  Future<dynamic> _advancedSpecialUuid(String id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -37,19 +34,22 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedSpecialEnum({
-    required UserLevel level,
-  }) async {
+  Future<Result<dynamic>> advancedSpecialUuid(String id) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedSpecialUuid(id),
+    );
+  }
+
+  Future<dynamic> _advancedSpecialEnum({required UserLevel level}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'level': level.toJson()};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -61,19 +61,22 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedSpecialLiteral({
-    required String mode,
-  }) async {
+  Future<Result<dynamic>> advancedSpecialEnum({required UserLevel level}) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedSpecialEnum(level: level),
+    );
+  }
+
+  Future<dynamic> _advancedSpecialLiteral({required String mode}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'mode': mode};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -85,19 +88,22 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedCollectionList({
-    required List<String> items,
-  }) async {
+  Future<Result<dynamic>> advancedSpecialLiteral({required String mode}) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedSpecialLiteral(mode: mode),
+    );
+  }
+
+  Future<dynamic> _advancedCollectionList({required List<String> items}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'items': items};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -109,19 +115,24 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedCollectionSet({
-    required List<int> items,
-  }) async {
+  Future<Result<dynamic>> advancedCollectionList({
+    required List<String> items,
+  }) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedCollectionList(items: items),
+    );
+  }
+
+  Future<dynamic> _advancedCollectionSet({required List<int> items}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'items': items};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -133,17 +144,22 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedCollectionDict() async {
+  Future<Result<dynamic>> advancedCollectionSet({required List<int> items}) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedCollectionSet(items: items),
+    );
+  }
+
+  Future<dynamic> _advancedCollectionDict() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -155,19 +171,22 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedCollectionTuple({
-    required List<dynamic> items,
-  }) async {
+  Future<Result<dynamic>> advancedCollectionDict() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedCollectionDict(),
+    );
+  }
+
+  Future<dynamic> _advancedCollectionTuple(List<dynamic> items) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'items': items};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -179,19 +198,22 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedCollectionVariableTuple({
-    required List<String> items,
-  }) async {
+  Future<Result<dynamic>> advancedCollectionTuple(List<dynamic> items) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedCollectionTuple(items),
+    );
+  }
+
+  Future<dynamic> _advancedCollectionVariableTuple(List<String> items) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'items': items};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -203,19 +225,22 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedUnionSimple({
-    required dynamic value,
-  }) async {
+  Future<Result<dynamic>> advancedCollectionVariableTuple(List<String> items) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedCollectionVariableTuple(items),
+    );
+  }
+
+  Future<dynamic> _advancedUnionSimple(dynamic value) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'value': value.toJson()};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -227,18 +252,23 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedUnionOptional({String? value}) async {
+  Future<Result<dynamic>> advancedUnionSimple(dynamic value) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedUnionSimple(value),
+    );
+  }
+
+  Future<dynamic> _advancedUnionOptional({String? value}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'value': value};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -250,19 +280,22 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedUnionModern({
-    required dynamic value,
-  }) async {
+  Future<Result<dynamic>> advancedUnionOptional({String? value}) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedUnionOptional(value: value),
+    );
+  }
+
+  Future<dynamic> _advancedUnionModern({required dynamic value}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'value': value.toJson()};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -274,15 +307,17 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedCustomPositiveInt({
-    required int value,
-    required int value2,
-  }) async {
+  Future<Result<dynamic>> advancedUnionModern({required dynamic value}) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedUnionModern(value: value),
+    );
+  }
+
+  Future<dynamic> _advancedCustomPositiveInt(int value, int value2) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'value': value,
@@ -290,7 +325,7 @@ class _AdvancedClient implements AdvancedClient {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -302,12 +337,17 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedDependsQuery({
+  Future<Result<dynamic>> advancedCustomPositiveInt(int value, int value2) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedCustomPositiveInt(value, value2),
+    );
+  }
+
+  Future<dynamic> _advancedDependsQuery({
     String? q,
     required int skip,
     required int limit,
@@ -321,7 +361,7 @@ class _AdvancedClient implements AdvancedClient {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -333,19 +373,26 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedDependsClass({
-    required String dbName,
-  }) async {
+  Future<Result<dynamic>> advancedDependsQuery({
+    String? q,
+    required int skip,
+    required int limit,
+  }) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedDependsQuery(q: q, skip: skip, limit: limit),
+    );
+  }
+
+  Future<dynamic> _advancedDependsClass({required String dbName}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'db_name': dbName};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -357,19 +404,22 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedErrorNotFound({
-    required int itemId,
-  }) async {
+  Future<Result<dynamic>> advancedDependsClass({required String dbName}) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedDependsClass(dbName: dbName),
+    );
+  }
+
+  Future<dynamic> _advancedErrorNotFound(int itemId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -381,17 +431,22 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> advancedErrorCustom({required int code}) async {
+  Future<Result<dynamic>> advancedErrorNotFound(int itemId) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedErrorNotFound(itemId),
+    );
+  }
+
+  Future<dynamic> _advancedErrorCustom(int code) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'code': code};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -403,8 +458,14 @@ class _AdvancedClient implements AdvancedClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
+  }
+
+  @override
+  Future<Result<dynamic>> advancedErrorCustom(int code) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _advancedErrorCustom(code),
+    );
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

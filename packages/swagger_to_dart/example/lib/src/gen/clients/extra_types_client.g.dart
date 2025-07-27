@@ -17,13 +17,12 @@ class _ExtraTypesClient implements ExtraTypesClient {
 
   final ParseErrorLogger? errorLogger;
 
-  @override
-  Future<HttpResponse<dynamic>> extraTypesCreateColor() async {
+  Future<dynamic> _extraTypesCreateColor() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -35,17 +34,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessCountry() async {
+  Future<Result<dynamic>> extraTypesCreateColor() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesCreateColor(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessCountry() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -57,17 +61,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessPaymentCard() async {
+  Future<Result<dynamic>> extraTypesProcessCountry() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessCountry(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessPaymentCard() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -79,17 +88,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessPhone() async {
+  Future<Result<dynamic>> extraTypesProcessPaymentCard() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessPaymentCard(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessPhone() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -101,17 +115,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessRouting() async {
+  Future<Result<dynamic>> extraTypesProcessPhone() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessPhone(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessRouting() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -123,17 +142,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessCoordinate() async {
+  Future<Result<dynamic>> extraTypesProcessRouting() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessRouting(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessCoordinate() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -145,17 +169,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessMac() async {
+  Future<Result<dynamic>> extraTypesProcessCoordinate() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessCoordinate(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessMac() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -167,17 +196,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessIsbn() async {
+  Future<Result<dynamic>> extraTypesProcessMac() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessMac(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessIsbn() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -189,17 +223,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessCurrency() async {
+  Future<Result<dynamic>> extraTypesProcessIsbn() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessIsbn(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessCurrency() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -211,17 +250,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessDomain() async {
+  Future<Result<dynamic>> extraTypesProcessCurrency() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessCurrency(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessDomain() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -233,17 +277,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessLanguage() async {
+  Future<Result<dynamic>> extraTypesProcessDomain() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessDomain(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessLanguage() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -255,17 +304,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessScript() async {
+  Future<Result<dynamic>> extraTypesProcessLanguage() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessLanguage(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessScript() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -277,17 +331,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessVersion() async {
+  Future<Result<dynamic>> extraTypesProcessScript() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessScript(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessVersion() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -299,17 +358,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessS3Path() async {
+  Future<Result<dynamic>> extraTypesProcessVersion() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessVersion(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessS3Path() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -321,17 +385,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessTimezone() async {
+  Future<Result<dynamic>> extraTypesProcessS3Path() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessS3Path(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessTimezone() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -343,17 +412,22 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> extraTypesProcessUlid() async {
+  Future<Result<dynamic>> extraTypesProcessTimezone() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessTimezone(),
+    );
+  }
+
+  Future<dynamic> _extraTypesProcessUlid() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -365,8 +439,14 @@ class _ExtraTypesClient implements ExtraTypesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
+  }
+
+  @override
+  Future<Result<dynamic>> extraTypesProcessUlid() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _extraTypesProcessUlid(),
+    );
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

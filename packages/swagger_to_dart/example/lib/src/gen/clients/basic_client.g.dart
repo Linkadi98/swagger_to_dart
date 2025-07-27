@@ -17,13 +17,12 @@ class _BasicClient implements BasicClient {
 
   final ParseErrorLogger? errorLogger;
 
-  @override
-  Future<HttpResponse<dynamic>> basicBasicNumber({required int num}) async {
+  Future<dynamic> _basicBasicNumber(int num) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -35,17 +34,22 @@ class _BasicClient implements BasicClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> basicBasicFloat({required double num}) async {
+  Future<Result<dynamic>> basicBasicNumber(int num) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _basicBasicNumber(num),
+    );
+  }
+
+  Future<dynamic> _basicBasicFloat(double num) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -57,17 +61,22 @@ class _BasicClient implements BasicClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> basicBasicBoolean({required bool flag}) async {
+  Future<Result<dynamic>> basicBasicFloat(double num) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _basicBasicFloat(num),
+    );
+  }
+
+  Future<dynamic> _basicBasicBoolean({required bool flag}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'flag': flag};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -79,17 +88,22 @@ class _BasicClient implements BasicClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> basicBasicString({required String text}) async {
+  Future<Result<dynamic>> basicBasicBoolean({required bool flag}) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _basicBasicBoolean(flag: flag),
+    );
+  }
+
+  Future<dynamic> _basicBasicString({required String text}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'text': text};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -101,17 +115,22 @@ class _BasicClient implements BasicClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> basicDatetimeDate({required DateTime d}) async {
+  Future<Result<dynamic>> basicBasicString({required String text}) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _basicBasicString(text: text),
+    );
+  }
+
+  Future<dynamic> _basicDatetimeDate(DateTime d) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'd': d.toIso8601String()};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -123,19 +142,22 @@ class _BasicClient implements BasicClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> basicDatetimeDatetime({
-    required DateTime dt,
-  }) async {
+  Future<Result<dynamic>> basicDatetimeDate(DateTime d) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _basicDatetimeDate(d),
+    );
+  }
+
+  Future<dynamic> _basicDatetimeDatetime(DateTime dt) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'dt': dt.toIso8601String()};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -147,17 +169,22 @@ class _BasicClient implements BasicClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> basicDatetimeTime({required String t}) async {
+  Future<Result<dynamic>> basicDatetimeDatetime(DateTime dt) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _basicDatetimeDatetime(dt),
+    );
+  }
+
+  Future<dynamic> _basicDatetimeTime(String t) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r't': t};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -169,19 +196,22 @@ class _BasicClient implements BasicClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> basicDatetimeTimedelta({
-    required String td,
-  }) async {
+  Future<Result<dynamic>> basicDatetimeTime(String t) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _basicDatetimeTime(t),
+    );
+  }
+
+  Future<dynamic> _basicDatetimeTimedelta(String td) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'td': td};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -193,8 +223,14 @@ class _BasicClient implements BasicClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
+  }
+
+  @override
+  Future<Result<dynamic>> basicDatetimeTimedelta(String td) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _basicDatetimeTimedelta(td),
+    );
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

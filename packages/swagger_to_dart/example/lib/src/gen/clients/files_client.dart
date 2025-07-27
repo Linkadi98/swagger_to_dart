@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:example/custom_api_response.dart';
 import 'package:example/src/gen/models/models.dart';
 part 'files_client.g.dart';
 
-@RestApi()
+@RestApi(callAdapter: CustomApiResponseAdapter)
 abstract class FilesClient {
   factory FilesClient(
     Dio dio, {
@@ -15,17 +16,17 @@ abstract class FilesClient {
   /// Summary: Handle basic form data
   /// Description: Handle form data.
   @POST('/forms/basic')
-  Future<HttpResponse> filesFormBasic();
+  Future<Result> filesFormBasic();
 
   /// OperationId: files-file_upload
   /// Summary: Handle single file upload
   /// Description: Handle file upload.
   @POST('/files/upload')
-  Future<HttpResponse> filesFileUpload();
+  Future<Result> filesFileUpload();
 
   /// OperationId: files-files_multiple
   /// Summary: Handle multiple file uploads
   /// Description: Handle multiple file uploads.
   @POST('/files/multiple')
-  Future<HttpResponse> filesFilesMultiple();
+  Future<Result> filesFilesMultiple();
 }

@@ -1,4 +1,5 @@
 import 'package:code_builder/code_builder.dart';
+import 'package:collection/collection.dart';
 import 'package:swagger_to_dart/swagger_to_dart.dart';
 
 String commentLine(String line) {
@@ -6,14 +7,17 @@ String commentLine(String line) {
 }
 
 class OpenApiClientGenerator {
-  const OpenApiClientGenerator({required this.config});
+  const OpenApiClientGenerator(
+      {required this.config, this.methodBuilders = const []});
 
   final ConfigComponents config;
+  final List<MethodBuilder> methodBuilders;
 
   ({String filename, String content}) generator({
     required OpenApiPaths path,
     required String clientName,
     required List<String> tagPaths,
+    required OpenApiComponents? components,
   }) {
     final library = LibraryBuilder();
 
@@ -21,6 +25,12 @@ class OpenApiClientGenerator {
     library.directives.addAll([
       Directive.import('package:dio/dio.dart'),
       Directive.import('package:retrofit/retrofit.dart'),
+      ...config.baseConfig.swaggerToDart.globalImports.map(Directive.import),
+      if (config.baseConfig.swaggerToDart.hasCustomApiResponse)
+        Directive.import(
+          config
+              .baseConfig.swaggerToDart.customApiResponse!.returnTypeImportPath,
+        ),
       ...config.importConfig.importModelsCode
           .map((importPath) => Directive.import(importPath)),
     ]);
@@ -33,7 +43,6 @@ class OpenApiClientGenerator {
     final clientClass = ClassBuilder()
       ..name = className
       ..abstract = true
-      ..annotations.add(CodeExpression(Code('RestApi()')))
       ..constructors.add(Constructor((b) {
         b.factory = true;
         b.redirect = refer('_$className');
@@ -50,6 +59,16 @@ class OpenApiClientGenerator {
           ..type = refer('ParseErrorLogger?')));
       }));
 
+    if (config.baseConfig.swaggerToDart.hasCustomApiResponse) {
+      final customApiResponseConfig =
+          config.baseConfig.swaggerToDart.customApiResponse!;
+
+      clientClass.annotations.add(CodeExpression(Code(
+          'RestApi(callAdapter: ${customApiResponseConfig.adapterClassName})')));
+    } else {
+      clientClass.annotations.add(CodeExpression(Code('RestApi()')));
+    }
+
     // Generate methods
     for (final tagPath in tagPaths) {
       final method = path[tagPath]!;
@@ -63,10 +82,28 @@ class OpenApiClientGenerator {
           method.operationId ?? "${methodType}_${tagPath.replaceAll('/', '_')}",
         );
 
+        final replacementMethodBuilder =
+            methodBuilders.firstWhereOrNull((element) {
+          var replaceForAnnotation = element.annotations
+              .build()
+              .where((a) => a is Reference)
+              .firstOrNull as Reference?;
+
+          var replaceForAnnotationSymbol = replaceForAnnotation?.symbol;
+
+          return replaceForAnnotationSymbol?.contains('ReplaceFor') == true &&
+              replaceForAnnotationSymbol?.contains('$methodName') == true &&
+              replaceForAnnotationSymbol?.contains('${clientClass.name}') ==
+                  true;
+        });
+
+        final hasReplacementMethodBuilder = replacementMethodBuilder != null;
+
         // Define the method
-        final methodBuilder = MethodBuilder()
-          ..name = methodName
-          ..returns = _getReturnType(method.responses, methodName);
+        final methodBuilder = replacementMethodBuilder ??
+            (MethodBuilder()
+              ..name = methodName
+              ..returns = _getReturnType(method.responses, methodName));
 
         // Add comments
         if (method.operationId != null) {
@@ -83,6 +120,15 @@ class OpenApiClientGenerator {
         if (method.deprecated == true) {
           methodBuilder.annotations.add(CodeExpression(Code('deprecated')));
         }
+
+        if (hasReplacementMethodBuilder) {
+          if (methodBuilder.annotations.isNotEmpty) {
+            methodBuilder.annotations.removeAt(0);
+          }
+          clientClass.methods.add(methodBuilder.build());
+          continue;
+        }
+
         methodBuilder.annotations.add(CodeExpression(
           Code('${methodType.toUpperCase()}(\'$tagPath\')'),
         ));
@@ -91,14 +137,58 @@ class OpenApiClientGenerator {
         final parameters = method.parameters ?? [];
         for (final param in parameters) {
           final paramName = config.namingUtils.renameProperty(param.name);
-          final paramType = _getDartType(param.schema, methodName);
+          final paramType =
+              _getDartType(param.schema, methodName, isNullable: true);
           final annotation = _getParameterAnnotation(param);
+          final schema = param.schema;
 
-          methodBuilder.optionalParameters.add(Parameter((p) => p
-            ..name = paramName
-            ..type = refer(paramType!)
-            ..named = true
-            ..annotations.add(CodeExpression(Code(annotation)))));
+          if (schema is OpenApiSchemaRef) {
+            final refClassName = config.namingUtils.renameRefClass(schema);
+            final refClass = components?.schemas[refClassName];
+            final objectProperties = refClass?.properties ?? {};
+            for (final entry in objectProperties.entries) {
+              final propertyName = config.namingUtils.renameProperty(entry.key);
+              final propertyType =
+                  _getDartType(entry.value, methodName, isNullable: true);
+
+              methodBuilder.optionalParameters.add(Parameter((p) => p
+                ..name = propertyName
+                ..type = refer(propertyType!)
+                ..named = true
+                ..annotations
+                    .add(CodeExpression(Code('Query(\'$propertyName\')')))));
+            }
+          } else {
+            // Xử lý các tham số thông thường
+            if (param.required_ == true) {
+              methodBuilder.requiredParameters.add(Parameter((p) => p
+                ..name = paramName
+                ..type = refer(paramType!)
+                ..named = true
+                ..annotations.add(CodeExpression(Code(annotation)))));
+            } else {
+              methodBuilder.optionalParameters.add(Parameter((p) => p
+                ..name = paramName
+                ..type = refer(paramType!)
+                ..named = true
+                ..annotations.add(CodeExpression(Code(annotation)))));
+            }
+          }
+        }
+
+        // Handle requestBody
+        if (method.requestBody != null) {
+          final requestBody = method.requestBody!;
+          final content = requestBody.content.current.value;
+
+          if (content != null) {
+            final bodyType = _getDartType(content.schema, methodName);
+            methodBuilder.requiredParameters.add(Parameter((p) => p
+              ..name = 'body'
+              ..type = refer(bodyType!)
+              ..named = true
+              ..annotations.add(CodeExpression(Code('Body()')))));
+          }
         }
 
         // Add the method to the class
@@ -130,23 +220,32 @@ class OpenApiClientGenerator {
 
   Reference _getReturnType(
       Map<String, OpenApiPathMethodResponse>? responses, String methodName) {
+    final customApiResponseConfig =
+        config.baseConfig.swaggerToDart.customApiResponse;
     final successResponse = responses?['200'];
     final responseType = _getDartType(
         successResponse?.content?.current.value?.schema, methodName);
 
+    final responseClassName = customApiResponseConfig == null
+        ? 'HttpResponse'
+        : customApiResponseConfig.returnTypeClassName;
+
     if (responseType == null ||
         responseType == 'dynamic' ||
         responseType == 'Map<String, dynamic>') {
-      return refer('Future<HttpResponse>');
+      return refer('Future<$responseClassName>');
+    } else if (responseType == 'List<Map<String, dynamic>>') {
+      return refer('Future<$responseClassName<List<MapItem>>>');
     } else {
-      return refer('Future<HttpResponse<$responseType>>');
+      return refer('Future<$responseClassName<$responseType>>');
     }
   }
 
-  String? _getDartType(OpenApiSchema? model, String className) {
+  String? _getDartType(OpenApiSchema? model, String className,
+      {bool isNullable = false}) {
     if (model == null) return null;
 
-    return switch (model) {
+    final dartType = switch (model) {
       OpenApiSchemaType value => config.dartTypeConverter.dartType(
           type: value.type,
           format: value.format,
@@ -172,5 +271,7 @@ class OpenApiClientGenerator {
           config.dartTypeConverter,
         ),
     };
+
+    return isNullable ? '$dartType?' : dartType;
   }
 }

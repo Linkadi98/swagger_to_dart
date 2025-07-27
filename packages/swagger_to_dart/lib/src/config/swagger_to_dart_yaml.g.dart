@@ -34,6 +34,10 @@ _SwaggerToDart _$SwaggerToDartFromJson(Map<String, dynamic> json) =>
                 k, (e as List<dynamic>).map((e) => e as String).toList()),
           ) ??
           const {},
+      customApiResponse: json['custom_api_response'] == null
+          ? null
+          : CustomApiResponse.fromJson(
+              json['custom_api_response'] as Map<String, dynamic>),
       skippedParameters: (json['skipped_parameters'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
@@ -48,5 +52,23 @@ Map<String, dynamic> _$SwaggerToDartToJson(_SwaggerToDart instance) =>
       'api_client_class_name': instance.apiClientClassName,
       'global_imports': instance.globalImports,
       'file_imports': instance.fileImports,
+      if (instance.customApiResponse?.toJson() case final value?)
+        'custom_api_response': value,
       'skipped_parameters': instance.skippedParameters,
+    };
+
+_CustomApiResponse _$CustomApiResponseFromJson(Map<String, dynamic> json) =>
+    _CustomApiResponse(
+      adapterClassName: json['adapter_class_name'] as String,
+      returnTypeClassName: json['return_type_class_name'] as String,
+      adapterImportPath: json['adapter_import_path'] as String,
+      returnTypeImportPath: json['return_type_import_path'] as String,
+    );
+
+Map<String, dynamic> _$CustomApiResponseToJson(_CustomApiResponse instance) =>
+    <String, dynamic>{
+      'adapter_class_name': instance.adapterClassName,
+      'return_type_class_name': instance.returnTypeClassName,
+      'adapter_import_path': instance.adapterImportPath,
+      'return_type_import_path': instance.returnTypeImportPath,
     };

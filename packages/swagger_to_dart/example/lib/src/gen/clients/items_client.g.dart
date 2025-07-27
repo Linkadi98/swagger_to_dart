@@ -17,13 +17,12 @@ class _ItemsClient implements ItemsClient {
 
   final ParseErrorLogger? errorLogger;
 
-  @override
-  Future<HttpResponse<ItemResponse>> itemsCreateItem() async {
+  Future<ItemResponse> _itemsCreateItem() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<ItemResponse>>(
+    final _options = _setStreamType<Result<ItemResponse>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -41,8 +40,14 @@ class _ItemsClient implements ItemsClient {
       errorLogger?.logError(e, s, _options);
       rethrow;
     }
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
+  }
+
+  @override
+  Future<Result<ItemResponse>> itemsCreateItem() {
+    return CustomApiResponseAdapter<ItemResponse>().adapt(
+      () => _itemsCreateItem(),
+    );
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

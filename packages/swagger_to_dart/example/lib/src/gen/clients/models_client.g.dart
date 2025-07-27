@@ -17,13 +17,12 @@ class _ModelsClient implements ModelsClient {
 
   final ParseErrorLogger? errorLogger;
 
-  @override
-  Future<HttpResponse<User>> modelsCreateUser() async {
+  Future<User> _modelsCreateUser() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<User>>(
+    final _options = _setStreamType<Result<User>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -41,17 +40,20 @@ class _ModelsClient implements ModelsClient {
       errorLogger?.logError(e, s, _options);
       rethrow;
     }
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> modelsGetLocation() async {
+  Future<Result<User>> modelsCreateUser() {
+    return CustomApiResponseAdapter<User>().adapt(() => _modelsCreateUser());
+  }
+
+  Future<dynamic> _modelsGetLocation() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -63,17 +65,22 @@ class _ModelsClient implements ModelsClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> modelsCreateAnimal() async {
+  Future<Result<dynamic>> modelsGetLocation() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _modelsGetLocation(),
+    );
+  }
+
+  Future<dynamic> _modelsCreateAnimal() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -85,17 +92,22 @@ class _ModelsClient implements ModelsClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<UserBase>> modelsResponseFiltered() async {
+  Future<Result<dynamic>> modelsCreateAnimal() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _modelsCreateAnimal(),
+    );
+  }
+
+  Future<UserBase> _modelsResponseFiltered() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<UserBase>>(
+    final _options = _setStreamType<Result<UserBase>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -113,19 +125,22 @@ class _ModelsClient implements ModelsClient {
       errorLogger?.logError(e, s, _options);
       rethrow;
     }
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> modelsResponseMultiple({
-    required bool isUser,
-  }) async {
+  Future<Result<UserBase>> modelsResponseFiltered() {
+    return CustomApiResponseAdapter<UserBase>().adapt(
+      () => _modelsResponseFiltered(),
+    );
+  }
+
+  Future<dynamic> _modelsResponseMultiple({required bool isUser}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'is_user': isUser};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -137,17 +152,22 @@ class _ModelsClient implements ModelsClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<List<User>>> modelsResponseList() async {
+  Future<Result<dynamic>> modelsResponseMultiple({required bool isUser}) {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _modelsResponseMultiple(isUser: isUser),
+    );
+  }
+
+  Future<List<User>> _modelsResponseList() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<List<User>>>(
+    final _options = _setStreamType<Result<List<User>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -167,8 +187,14 @@ class _ModelsClient implements ModelsClient {
       errorLogger?.logError(e, s, _options);
       rethrow;
     }
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
+  }
+
+  @override
+  Future<Result<List<User>>> modelsResponseList() {
+    return CustomApiResponseAdapter<List<User>>().adapt(
+      () => _modelsResponseList(),
+    );
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

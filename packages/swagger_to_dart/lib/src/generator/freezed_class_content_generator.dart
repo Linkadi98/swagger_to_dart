@@ -9,6 +9,7 @@ import 'package:swagger_to_dart/swagger_to_dart.dart';
 /// Generates consistent class content for different model types using code_builder
 class FreezedClassContentGenerator {
   FreezedClassContentGenerator(this.config);
+
   final ConfigComponents config;
 
   String generateRegularClassContent({
@@ -59,8 +60,8 @@ class FreezedClassContentGenerator {
             ctr.optionalParameters.add(Parameter((p) => p
               ..name = entry.key.camelCase
               ..named = true
-              ..required = true
-              ..type = refer(_resolvePropertyType(entry.value, className))));
+              ..type =
+                  refer('${_resolvePropertyType(entry.value, className)}?')));
           }
         }));
 
@@ -72,6 +73,13 @@ class FreezedClassContentGenerator {
             ..type = refer('Map<String, dynamic>')));
           ctr.lambda = true;
           ctr.body = Code('_\$${className}FromJson(json)');
+        }));
+
+        c.methods.add(Method((m) {
+          m.name = 'toJson';
+          m.returns = refer('Map<String, dynamic>');
+          m.lambda = true; // Use a single-line lambda expression
+          m.body = Code('_\$${className}ToJson(this as _${className})');
         }));
       }));
     });

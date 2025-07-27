@@ -17,13 +17,12 @@ class _FilesClient implements FilesClient {
 
   final ParseErrorLogger? errorLogger;
 
-  @override
-  Future<HttpResponse<dynamic>> filesFormBasic() async {
+  Future<dynamic> _filesFormBasic() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -35,17 +34,20 @@ class _FilesClient implements FilesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> filesFileUpload() async {
+  Future<Result<dynamic>> filesFormBasic() {
+    return CustomApiResponseAdapter<dynamic>().adapt(() => _filesFormBasic());
+  }
+
+  Future<dynamic> _filesFileUpload() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -57,17 +59,20 @@ class _FilesClient implements FilesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> filesFilesMultiple() async {
+  Future<Result<dynamic>> filesFileUpload() {
+    return CustomApiResponseAdapter<dynamic>().adapt(() => _filesFileUpload());
+  }
+
+  Future<dynamic> _filesFilesMultiple() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<dynamic>>(
+    final _options = _setStreamType<Result<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -79,8 +84,14 @@ class _FilesClient implements FilesClient {
     );
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
+    return _value;
+  }
+
+  @override
+  Future<Result<dynamic>> filesFilesMultiple() {
+    return CustomApiResponseAdapter<dynamic>().adapt(
+      () => _filesFilesMultiple(),
+    );
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
